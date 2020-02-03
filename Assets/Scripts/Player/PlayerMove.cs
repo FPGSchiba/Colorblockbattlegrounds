@@ -13,11 +13,20 @@ public class PlayerMove : MonoBehaviour
     Vector3 velocity;
     [GreyOut]
     bool grounded;
-
-    private void Start()
-    {
-
-    }
+    [SerializeField]
+    Schusslader schusslader;
+    [Header("Variablen")]
+    [SerializeField]
+    float strength;
+    [SerializeField]
+    float Mittelwert;
+    Vector3 moveDirection;
+    [SerializeField]
+    [GreyOut]
+    public float Ruckcount = 0.2f;
+    [SerializeField]
+    Transform cam;
+    bool isCount;
 
     void Update()
     {
@@ -41,13 +50,37 @@ public class PlayerMove : MonoBehaviour
             velocity.y += Mathf.Sqrt(jump * -2f * gravity);
         }
 
+        if (Input.GetButtonUp("Fire1") && Ruckcount > 0.2 && !Input.GetMouseButton(1))
+        {
+            Ruckcount = 0;
+            moveDirection = cam.transform.TransformDirection(Vector3.forward) * -schusslader.force / 500;
+        }
+
+        if(Ruckcount < 0.2)
+        {
+            isCount = true;
+            controller.Move(moveDirection);
+            Ruckcount = Ruckcount + 1 * Time.deltaTime;
+            if (schusslader.isShooted)
+            {
+                GameObject.Find("Piu").GetComponent<Schusslader>().enabled = false;
+            }
+        }
+        else
+        {
+            isCount = false;
+            GameObject.Find("Piu").GetComponent<Schusslader>().enabled = true;
+        }
+
+        if(velocity.z != 0 && isCount == false)
+        {
+            velocity.z = 0;
+        }
+
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-    }
 
-    public void Knockback(float amount)
-    {
-        GetComponent<Rigidbody>().AddForce(Vector3.back * amount);
+        velocity = controller.velocity;
     }
 }

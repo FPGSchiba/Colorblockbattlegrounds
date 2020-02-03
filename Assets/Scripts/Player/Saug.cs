@@ -20,7 +20,7 @@ public class Saug : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && !Input.GetButton("Fire1"))
         {
             GameObject.Find("trigger").GetComponent<SphereCollider>().enabled = true;
             Vector3 explosionPos = transform.position;
@@ -33,8 +33,7 @@ public class Saug : MonoBehaviour
                     rb.AddExplosionForce(power, explosionPos, radius, 1.0F);
             }
         }
-
-        if(!Input.GetMouseButton(1))
+        else
         {
             GameObject.Find("trigger").GetComponent<SphereCollider>().enabled = false;
         }
