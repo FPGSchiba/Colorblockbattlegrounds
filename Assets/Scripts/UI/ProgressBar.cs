@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-    public float width;
+    [SerializeField]
+    [GreyOut]
+    float width;
+
+    Slider slider;
+
+    private void Start()
+    {
+        slider = GameObject.Find("CubesPlayer").GetComponent<Slider>();
+    }
 
     void Update()
     {
@@ -11,9 +21,6 @@ public class ProgressBar : MonoBehaviour
         width = triggerSaug.cube;
         width = width * 2;
 
-        GameObject bar = GameObject.Find("Progress");
-        var theBarRectTransform = bar.transform as RectTransform;
-        theBarRectTransform.sizeDelta = new Vector2(width, theBarRectTransform.sizeDelta.y);
+        slider.value = width;
     }
-
 }

@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3652316903360973985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384367154910279645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac43e31fd65451f4981951a28214e7e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player:
+    serializedVersion: 2
+    m_Bits: 1024
+  Oldposition: {x: 0, y: 0, z: 0}
+  Speed: 0
+  count: 0
+  shooter: {fileID: 0}
 --- !u!1001 &4085037379783436345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46,6 +65,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SchussRot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929108811310833636, guid: d1aeaef96a020444382741e5b7b857f6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8520298213336313918, guid: d1aeaef96a020444382741e5b7b857f6,
         type: 3}
@@ -104,3 +128,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1aeaef96a020444382741e5b7b857f6, type: 3}
+--- !u!1 &6384367154910279645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6929108811310833636, guid: d1aeaef96a020444382741e5b7b857f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4085037379783436345}
+  m_PrefabAsset: {fileID: 0}

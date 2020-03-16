@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class SchussGeschwindigkeit : MonoBehaviour
 {
+    [Header("LayerMask")]
+    [SerializeField]
+    LayerMask Player;
 
     [Header("Variablen")]
     [SerializeField]
@@ -14,32 +17,39 @@ public class SchussGeschwindigkeit : MonoBehaviour
     [SerializeField]
     [GreyOut]
     float count;
+    [SerializeField]
+    [GreyOut]
+    public GameObject shooter;
 
-
-    void Start()
+    private void Start()
     {
+        Collider[] MaybeShooter = Physics.OverlapSphere(transform.position, 10, Player);
 
-        Oldposition = transform.position;
-
-    }
-
-    void FixedUpdate()
-    {
-        
-        Speed = (transform.position - Oldposition).magnitude.TwoDecimals();
-
-        Oldposition = transform.position;
-
-        if(Speed == 0)
+        foreach(Collider i in MaybeShooter)
         {
-            count = count + 1 * Time.deltaTime;
-
-            if(count == 5)
+            if(i.gameObject.layer == 10)
             {
-                Debug.Log("Destroy please");
+                shooter = i.gameObject;
             }
         }
-
     }
 
+    private void FixedUpdate()
+    {
+        if(count >= 1)
+        {
+            Oldposition = transform.position;
+        }
+        else
+        {
+            count = count + 1 * Time.deltaTime;
+        }
+    }
+
+    public float SchussSpeed()
+    {
+        Speed = (transform.position - Oldposition).magnitude.TwoDecimals();
+
+        return Speed;
+    }
 }
