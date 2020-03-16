@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Trigger : MonoBehaviour
 {
-    public float cu;
+    [Header("Referenzen")]
+    [SerializeField]
+    GameManager manager;
 
     private void OnCollisionEnter(Collision col)
     {
@@ -11,8 +13,7 @@ public class Trigger : MonoBehaviour
         if(col.gameObject.tag == "cube")
         {
             Destroy(col.gameObject);
-            cu++;
-            Debug.Log(cu);
+            manager.BlockDeleted(1);
         }
     }
 }

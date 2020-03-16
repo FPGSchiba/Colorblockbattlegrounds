@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     float PointsBlue;
     [SerializeField]
     LayerMask PLayerLayer;
+    [SerializeField]
+    [GreyOut]
+    float Deletedblocks;
 
     [Header("Referenzen")]
     [SerializeField]
@@ -29,10 +32,14 @@ public class GameManager : MonoBehaviour
     Text PunkteAusgabe;
     [SerializeField]
     GameObject Player;
+    [SerializeField]
+    GameObject Blocks;
+    [SerializeField]
+    Transform BlockRespawn;
 
     void Start()
     {
-        DeathScreen.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
         Teams = new Dictionary<GameObject, string>();
         GameObject[] AllgameObjects = GameObject.FindGameObjectsWithTag("Player");
         isRed = false;
@@ -150,5 +157,22 @@ public class GameManager : MonoBehaviour
         }
 
         return nearestEnemy.transform;
+    }
+
+    public void BlockDeleted(float amount)
+    {
+        Deletedblocks = Deletedblocks + amount;
+
+        if(Deletedblocks >= 50)
+        {
+            float count = 0;
+            Deletedblocks = 0;
+
+            do
+            {
+                GameObject paum = Instantiate(Blocks, BlockRespawn, true);
+                count++;
+            } while (count < 50);
+        }
     }
 }
