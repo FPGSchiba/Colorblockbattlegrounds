@@ -18,10 +18,12 @@ public class RandomMovement : MonoBehaviour
     NavMeshAgent agent;
     [SerializeField]
     EnemyAI Ai;
+    [SerializeField]
+    EnemyLibrary Library;
 
     void Start()
     {
-        agent.SetDestination(randomVector3());
+        agent.SetDestination(Library.randomVector3(walkRadius));
     }
 
     void Update()
@@ -30,23 +32,12 @@ public class RandomMovement : MonoBehaviour
         if(count > 5 && !Ai.SeesPlayer)
         {
             count = 0;
-            agent.SetDestination(randomVector3());
+            agent.SetDestination(Library.randomVector3(walkRadius));
         }
         else
         {
             count = count + 1 * Time.deltaTime;
         }
 
-    }
-
-    public Vector3 randomVector3()
-    {
-        Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
-        randomDirection += transform.position;
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
-        Vector3 finalPosition = hit.position;
-
-        return finalPosition;
     }
 }

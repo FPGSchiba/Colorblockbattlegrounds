@@ -12,12 +12,8 @@ public class Flashy : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-
             Light = !Light;
-
             GameObject.Find("Flash").GetComponent<Light>().enabled = Light;
-
         }
-
     }
 }

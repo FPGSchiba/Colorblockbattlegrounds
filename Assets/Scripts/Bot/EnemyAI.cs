@@ -12,33 +12,53 @@ public class EnemyAI : MonoBehaviour
     public bool SeesPlayer;
     [GreyOut]
     [SerializeField]
-    float count;
+    float count = 0f;
     [SerializeField]
     [Range(0f, 5f)]
-    float ShootCooldown;
+    float ShootCooldown = 2f;
+    [SerializeField]
+    public float SpeedReset= 25f;
+
     [Header("Referenzen")]
     [SerializeField]
-    Transform target;
     NavMeshAgent agent;
     [SerializeField]
     BotShoot shoot;
+    [SerializeField]
+    EnemyLibrary Library;
+    [SerializeField]
+    GameManager manager;
+    [SerializeField]
+    GameObject Enemy;
+    [SerializeField]
+    GameObject NonFocus;
 
     void Start()
     {
         SeesPlayer = false;
-        agent = this.GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
+        Shoot();
+    }
 
-        if(distance <= shootRadius && SeesPlayer)
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, shootRadius);
+    }
+
+    public void Shoot()
+    {
+        if (Library.distance(manager.GetTarget(Enemy, NonFocus), transform) <= shootRadius && SeesPlayer)
         {
             agent.speed = 0;
-            transform.LookAt(target);
+            transform.LookAt(manager.GetTarget(Enemy, NonFocus));
 
-            if(count >= ShootCooldown)
+            if (count >= ShootCooldown)
             {
                 count = 0;
                 shoot.OnShoot();
@@ -50,26 +70,12 @@ public class EnemyAI : MonoBehaviour
         }
         else if (SeesPlayer)
         {
-            agent.speed = 50;
+            agent.speed = SpeedReset;
         }
-        else if (distance <= lookRadius)
+        else if (Library.distance(manager.GetTarget(Enemy, NonFocus), transform) <= lookRadius)
         {
-            agent.speed = 50;
-            agent.SetDestination(target.position);
+            agent.speed = SpeedReset;
+            agent.SetDestination(manager.GetTarget(Enemy, NonFocus).position);
         }
-    }
-
-    public void RepawnBot()
-    {
-        SeesPlayer = false;
-        agent = this.GetComponent<NavMeshAgent>();
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, shootRadius);
     }
 }

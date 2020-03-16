@@ -1,7 +1,4 @@
-﻿using Project.Utility;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
@@ -10,8 +7,6 @@ public class BotHealth : MonoBehaviour
     [Header("Variablen")]
     public float health;
     public float MaxHealth;
-    [GreyOut]
-    public float damage;
 
     [Header("Referenzen")]
     public GameObject Healthbar;
@@ -20,23 +15,23 @@ public class BotHealth : MonoBehaviour
     GameManager manager;
     SchussGeschwindigkeit schuss;
     [SerializeField]
-    BlockSpawnDeath death;
-    [SerializeField]
     EnemyAI Ai;
+    [SerializeField]
+    EnemyLibrary Library;
 
     void Start()
     {
         Healthbar.SetActive(false);
         health = MaxHealth;
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        slider.value = CalculateHealthforBar();
+        slider.value = Library.CalculateHealthforBar(health, MaxHealth);
     }
 
     public void Respawn()
     {
         Healthbar.SetActive(false);
         health = MaxHealth;
-        Ai.RepawnBot();
+        slider.value = Library.CalculateHealthforBar(health, MaxHealth);
     }
 
     private void OnCollisionEnter(Collision col)
@@ -44,13 +39,13 @@ public class BotHealth : MonoBehaviour
         if (col.gameObject.tag == "cube" && col.gameObject.layer == 9)
         {
             schuss = col.gameObject.GetComponent<SchussGeschwindigkeit>();
-            OnSchussEnter(schuss.SchussSpeed(), manager.isEnemy(schuss.shooter, Enemy));  
+            Library.OnSchussEnter(schuss.SchussSpeed(), manager.isEnemy(schuss.shooter, Enemy), this.GetComponent<BotHealth>());
         }
     }
 
     void Update()
     {
-        slider.value = CalculateHealthforBar();
+        slider.value = Library.CalculateHealthforBar(health, MaxHealth);
 
         if(health < MaxHealth)
         {
@@ -59,7 +54,7 @@ public class BotHealth : MonoBehaviour
 
         if(health <= 0)
         {
-            Dead();
+            Library.Dead(manager, Enemy);
         }
 
         if(health > MaxHealth)
@@ -68,33 +63,11 @@ public class BotHealth : MonoBehaviour
         }
     }
 
-    public float CalculateHealthforBar()
+    public void SetHealth(float damage)
     {
-        return health / MaxHealth;
-    }
-
-    public void OnSchussEnter(float Speed, bool isEnemy)
-    {
-        if (isEnemy)
-        {
-            damage = 0;
-
-            damage = (Speed / 19.62f).TwoDecimals();
-
-            if(damage < 0)
-            {
-                damage = damage * -1;
-            }
-
-            health = health - damage;
-        }
+        health = health - damage;
 
         NavMeshAgent agent = Enemy.GetComponent<NavMeshAgent>();
         agent.SetDestination(schuss.shooter.transform.position);
-    }
-
-    void Dead()
-    {
-        manager.OnDeathBot(Enemy, 10);
     }
 }
