@@ -5,30 +5,19 @@ using UnityEngine;
 
 public class BotShoot : MonoBehaviour
 {
-
-    [Header("Variablen")]
-    [SerializeField]
-    [GreyOut]
-    float dist;
-    [SerializeField]
-    [GreyOut]
-    float time;
-    [SerializeField]
-    [GreyOut]
-    float Höhe;
-    [SerializeField]
-    [GreyOut]
-    float Rotation;
-
     [Header("Referenzen")]
     [SerializeField]
-    Transform target;
-    [SerializeField]
     GameObject Schuss;
+    [SerializeField]
+    GameManager manager;
+    [SerializeField]
+    GameObject Enemy;
+    [SerializeField]
+    GameObject NonFocus;
 
     public void OnShoot()
     {
-        transform.LookAt(target);
+        transform.LookAt(manager.GetTarget(Enemy, NonFocus));
 
         GameObject pau = Instantiate(Schuss, transform.position, transform.localRotation);
         Rigidbody rb = pau.GetComponent<Rigidbody>();

@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     [GreyOut]
     float PointsBlue;
+    [SerializeField]
+    LayerMask PLayerLayer;
+    [SerializeField]
+    [GreyOut]
+    float Deletedblocks;
 
     [Header("Referenzen")]
     [SerializeField]
@@ -27,12 +32,16 @@ public class GameManager : MonoBehaviour
     Text PunkteAusgabe;
     [SerializeField]
     GameObject Player;
+    [SerializeField]
+    GameObject Blocks;
+    [SerializeField]
+    Transform BlockRespawn;
 
     void Start()
     {
-        DeathScreen.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
         Teams = new Dictionary<GameObject, string>();
-        GameObject[] AllgameObjects = GameObject.FindGameObjectsWithTag("Bot");
+        GameObject[] AllgameObjects = GameObject.FindGameObjectsWithTag("Player");
         isRed = false;
 
         foreach(GameObject go in AllgameObjects)
@@ -48,8 +57,6 @@ public class GameManager : MonoBehaviour
                 isRed = !isRed;
             }
         }
-
-        Teams.Add(GameObject.Find("Player"), "blue");
     }
 
     public bool isEnemy(GameObject shooter, GameObject hitted)
@@ -124,5 +131,48 @@ public class GameManager : MonoBehaviour
         Leben leben = Player.GetComponent<Leben>();
 
         leben.PlayerRespawn();
+    }
+
+    public Transform GetTarget(GameObject thisGameobject, GameObject NonFocus)
+    {
+        float lowestDist = 1000;
+        GameObject nearestEnemy = NonFocus;
+
+        Collider[] colls = Physics.OverlapSphere(thisGameobject.transform.position, 100000000, PLayerLayer);
+        foreach(Collider col in colls)
+        {
+            if(col.gameObject.tag == "Player")
+            {
+                if (isEnemy(col.gameObject, thisGameobject))
+                {
+                    float dist = Vector3.Distance(thisGameobject.transform.position, col.gameObject.transform.position);
+
+                    if (dist < lowestDist)
+                    {
+                        lowestDist = dist;
+                        nearestEnemy = col.gameObject;
+                    }
+                }
+            }
+        }
+
+        return nearestEnemy.transform;
+    }
+
+    public void BlockDeleted(float amount)
+    {
+        Deletedblocks = Deletedblocks + amount;
+
+        if(Deletedblocks >= 50)
+        {
+            float count = 0;
+            Deletedblocks = 0;
+
+            do
+            {
+                GameObject paum = Instantiate(Blocks, BlockRespawn, true);
+                count++;
+            } while (count < 50);
+        }
     }
 }
