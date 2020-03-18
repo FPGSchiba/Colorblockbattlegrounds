@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.None;
         Teams = new Dictionary<GameObject, string>();
         GameObject[] AllgameObjects = GameObject.FindGameObjectsWithTag("Player");
         isRed = false;

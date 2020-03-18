@@ -3,23 +3,20 @@
 public class MouseLook : MonoBehaviour
 {
 
-    public float Sensetivity = 100f;
     public Transform playerBody;
     [GreyOut]
     float xRotation = 0f;
 
     void Start()
     {
-
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     void Update()
     {
 
-        float mouseX = Input.GetAxis("Mouse X") * Sensetivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * Sensetivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * SharedSavedStuff.Sensetivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * SharedSavedStuff.Sensetivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
@@ -30,3 +27,9 @@ public class MouseLook : MonoBehaviour
 
     }
 }
+
+public class SharedSavedStuff
+{
+    public static float Sensetivity;
+}
+

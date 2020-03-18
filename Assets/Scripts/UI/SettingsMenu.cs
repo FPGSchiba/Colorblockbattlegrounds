@@ -8,6 +8,11 @@ public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public Dropdown resDropdown;
+    public Dropdown qualDropdown;
+    public Slider sensSlider;
+    public Slider volSlider;
+    public Toggle toggle;
+    public int ResReset;
     Resolution[] resolutions;
 
     private void Start()
@@ -27,9 +32,9 @@ public class SettingsMenu : MonoBehaviour
             {
                 currentResolutionIndex = i;
             }
-
         }
 
+        ResReset = currentResolutionIndex;
         resDropdown.AddOptions(options);
         resDropdown.value = currentResolutionIndex;
         resDropdown.RefreshShownValue();
@@ -54,5 +59,26 @@ public class SettingsMenu : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void ChangeSensetivity(float value)
+    {
+        SharedSavedStuff.Sensetivity = value;
+    }
+
+    public void Reset()
+    {
+        SetFullscreen(true);
+        qualDropdown.SetValueWithoutNotify(3);
+        resDropdown.SetValueWithoutNotify(ResReset);
+        OnVolumeChange(0);
+        ChangeSensetivity(100);
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, Screen.fullScreen);
+        SetQuality(3);
+        qualDropdown.RefreshShownValue();
+        resDropdown.RefreshShownValue();
+        volSlider.value = 0;
+        sensSlider.value = 100;
+        toggle.isOn = true;
     }
 }
