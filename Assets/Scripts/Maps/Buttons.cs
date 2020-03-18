@@ -25,4 +25,9 @@ public class Buttons : MonoBehaviour
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         manager.OnPlayerRespawn();
     }
+
+    public void OpenOptions()
+    {
+        SceneManager.LoadScene(6);
+    }
 }
