@@ -76,7 +76,7 @@ Team Troll Fights
     - Einen Gegner ausschaltet* (1P)
     - Zwei Gegner fast zur gleichen Zeit ausschaltet (3P)
     - Drei Gegner fast zur gleichen Zeit ausschaltet (5P)
-    - Alle Gegnerischen Spieler fast zur gleichen Zeit auschaltet (10P)
+    - Alle Gegnerischen Spieler fast zur gleichen Zeit ausgechaltet (10P)
     - 30 Spieler nacheinander ausschaltet (80P)
     - 5 Spieler nacheinander auschaltet (2P)
     - 10 Spieler nacheinander ausschaltet (5P)

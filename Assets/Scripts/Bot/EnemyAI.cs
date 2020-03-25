@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-
+using System.Collections.Generic;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -18,6 +18,10 @@ public class EnemyAI : MonoBehaviour
     float ShootCooldown = 2f;
     [SerializeField]
     public float SpeedReset= 25f;
+    [SerializeField]
+    [GreyOut]
+    public float streak;
+    public List<string> Keys;
 
     [Header("Referenzen")]
     [SerializeField]
@@ -32,6 +36,8 @@ public class EnemyAI : MonoBehaviour
     GameObject Enemy;
     [SerializeField]
     GameObject NonFocus;
+    [SerializeField]
+    BotHealth health;
 
     void Start()
     {
@@ -41,6 +47,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         Shoot();
+        SetTeam();
     }
 
     private void OnDrawGizmosSelected()
@@ -76,6 +83,26 @@ public class EnemyAI : MonoBehaviour
         {
             agent.speed = SpeedReset;
             agent.SetDestination(manager.GetTarget(Enemy, NonFocus).position);
+        }
+    }
+
+    void SetTeam()
+    {
+        string thisTeam = manager.GetTeam(this.gameObject);
+
+        if(thisTeam == "keins")
+        {
+            Debug.LogWarning("This Object doesnt have a Team. Warning Code: 420");
+            this.gameObject.SetActive(false);
+            Debug.LogWarning("Warning Code: 420 fixed");
+        }
+        else if(thisTeam == "blue")
+        {
+            health.SetColor("blue");
+        }
+        else if(thisTeam == "red")
+        {
+            health.SetColor("red");
         }
     }
 }

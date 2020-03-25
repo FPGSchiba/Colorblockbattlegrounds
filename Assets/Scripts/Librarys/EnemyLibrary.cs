@@ -99,9 +99,9 @@ public class EnemyLibrary : MonoBehaviour
     }
 
 
-    public void Dead(GameManager manager, GameObject Enemy)
+    public void Dead(GameManager manager, GameObject Enemy, GameObject Killer)
     {
-        manager.OnDeathBot(Enemy, 10);
+        manager.OnDeathBot(Enemy, 10, Killer);
     }
 
     public Vector3 randomVector3(float walkRadius)

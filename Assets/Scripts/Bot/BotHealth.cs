@@ -18,10 +18,11 @@ public class BotHealth : MonoBehaviour
     EnemyAI Ai;
     [SerializeField]
     EnemyLibrary Library;
+    [SerializeField]
+    public Image fill;
 
     void Start()
     {
-        Healthbar.SetActive(false);
         health = MaxHealth;
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         slider.value = Library.CalculateHealthforBar(health, MaxHealth);
@@ -29,7 +30,6 @@ public class BotHealth : MonoBehaviour
 
     public void Respawn()
     {
-        Healthbar.SetActive(false);
         health = MaxHealth;
         slider.value = Library.CalculateHealthforBar(health, MaxHealth);
     }
@@ -47,14 +47,9 @@ public class BotHealth : MonoBehaviour
     {
         slider.value = Library.CalculateHealthforBar(health, MaxHealth);
 
-        if(health < MaxHealth)
-        {
-            Healthbar.SetActive(true);
-        }
-
         if(health <= 0)
         {
-            Library.Dead(manager, Enemy);
+            Library.Dead(manager, Enemy, schuss.shooter);
         }
 
         if(health > MaxHealth)
@@ -69,5 +64,19 @@ public class BotHealth : MonoBehaviour
 
         NavMeshAgent agent = Enemy.GetComponent<NavMeshAgent>();
         agent.SetDestination(schuss.shooter.transform.position);
+    }
+
+    public void SetColor(string color)
+    {
+        if(color == "red")
+        {
+            fill.color = new Color(255, 0, 0);
+            fill.GraphicUpdateComplete();
+        }
+        else
+        {
+            fill.color = new Color(0, 0, 255);
+            fill.GraphicUpdateComplete();
+        }
     }
 }

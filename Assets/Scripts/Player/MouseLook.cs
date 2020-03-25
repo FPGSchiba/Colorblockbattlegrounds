@@ -30,6 +30,6 @@ public class MouseLook : MonoBehaviour
 
 public class SharedSavedStuff
 {
-    public static float Sensetivity;
+    public static float Sensetivity = 100;
 }
 

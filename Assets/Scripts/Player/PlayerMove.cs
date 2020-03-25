@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     Transform cam;
     bool isCount;
+    public List<string> Keys;
+    public float Streaks;
 
     void Update()
     {
@@ -50,7 +53,7 @@ public class PlayerMove : MonoBehaviour
             velocity.y += Mathf.Sqrt(jump * -2f * gravity);
         }
 
-        if (Input.GetButtonUp("Fire1") && Ruckcount > 0.2 && !Input.GetMouseButton(1))
+        if (Input.GetButtonUp("Fire1") && Ruckcount > 0.2 && !Input.GetMouseButton(1) && !PauseMenu.isPaused && !GameManager.isDead)
         {
             Ruckcount = 0;
             moveDirection = cam.transform.TransformDirection(Vector3.forward) * -schusslader.force / 500;

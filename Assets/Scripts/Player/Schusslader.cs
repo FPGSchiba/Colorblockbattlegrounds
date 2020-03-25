@@ -29,7 +29,7 @@ public class Schusslader : MonoBehaviour
         if (triggerSaug.cube > 0)
         {
 
-            if (Input.GetButton("Fire1") && !Input.GetMouseButton(1))
+            if (Input.GetButton("Fire1") && !Input.GetMouseButton(1) && !PauseMenu.isPaused && !GameManager.isDead)
             {
                 if (speed < SpeedMax)
                 {
@@ -39,7 +39,7 @@ public class Schusslader : MonoBehaviour
 
             }
 
-            if (Input.GetButtonUp("Fire1") && !Input.GetMouseButton(1))
+            if (Input.GetButtonUp("Fire1") && !Input.GetMouseButton(1) && !PauseMenu.isPaused && !GameManager.isDead)
             {
                 GameObject piu = Instantiate(schuss, GameObject.Find("Piu").transform.position, GameObject.Find("Piu").GetComponent<Transform>().localRotation);
                 Rigidbody rb = piu.GetComponent<Rigidbody>();
