@@ -74,9 +74,7 @@ Team Troll Fights
     Das Ziel für jedes Team ist es 100 Punkte zu erreichen, diese Punkte kann jeder Spieler seinem Team verdienen, indem er:
 
     - Einen Gegner ausschaltet* (1P)
-    - Zwei Gegner fast zur gleichen Zeit ausschaltet (3P)
-    - Drei Gegner fast zur gleichen Zeit ausschaltet (5P)
-    - Alle Gegnerischen Spieler fast zur gleichen Zeit ausgechaltet (10P)
+    - Zwei Gegner fast zur gleichen Zeit ausschaltet (2P)
     - 30 Spieler nacheinander ausschaltet (80P)
     - 5 Spieler nacheinander auschaltet (2P)
     - 10 Spieler nacheinander ausschaltet (5P)
