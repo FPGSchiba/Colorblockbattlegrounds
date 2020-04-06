@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         Kills = new Dictionary<string, float>();
         Teams = new Dictionary<GameObject, string>();
         AllPlayers = GameObject.FindGameObjectsWithTag("Player");

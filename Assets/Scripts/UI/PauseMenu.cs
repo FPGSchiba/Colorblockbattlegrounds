@@ -22,7 +22,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void Resume()
+    public void Resume()
     {
         Cursor.lockState = CursorLockMode.Locked;
         PauseMenue.SetActive(false);

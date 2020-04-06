@@ -3,7 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour
 {
-    GameManager manager;
+    public GameManager manager;
+    public PauseMenu menu;
+    public GameObject options;
 
     public void OpenSandbox()
     {
@@ -29,5 +31,20 @@ public class Buttons : MonoBehaviour
     public void OpenOptions()
     {
         SceneManager.LoadScene(6);
+    }
+
+    public void OpenOptoinsSandbox()
+    {
+        options.SetActive(true);
+    }
+
+    public void ResumeOnSandbox()
+    {
+        menu.Resume();
+    }
+
+    public void CloseOptionsOnSandbox()
+    {
+        options.SetActive(false);
     }
 }
