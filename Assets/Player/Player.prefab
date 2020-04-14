@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 6898754117184864835}
   - component: {fileID: 3283283714870863189}
   - component: {fileID: 8278969652083501023}
+  - component: {fileID: 1593772117}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -141,6 +142,8 @@ MonoBehaviour:
   Mittelwert: 1
   Ruckcount: 0.2
   cam: {fileID: 8016856178184548384}
+  Keys: []
+  Streaks: 0
 --- !u!208 &3283283714870863189
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -171,6 +174,25 @@ CapsuleCollider:
   m_Height: 3.9919434
   m_Direction: 1
   m_Center: {x: 0.028640747, y: 0.11465454, z: 0}
+--- !u!114 &1593772117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3622582031371596199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd18b4e3f132694bad25b4fa4b2e0b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  MaxHealth: 100
+  damage: 0
+  isDead: 0
+  Healthbar: {fileID: 0}
+  slider: {fileID: 0}
+  Player: {fileID: 3622582031371596199}
 --- !u!1 &5092375587166776274
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8823b11d98b4e46b3afd742c35a23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sensetivity: 100
   playerBody: {fileID: 1055590511048946960}
 --- !u!1001 &302661078988735474
 PrefabInstance:
@@ -587,8 +608,7 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2c086a688c34902498724f61327189f0, type: 2}
-    m_RemovedComponents:
-    - {fileID: 4283181817178414072, guid: 3ebb9ba9e01bc79459306b79b6b88996, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ebb9ba9e01bc79459306b79b6b88996, type: 3}
 --- !u!1 &5255719308013182933 stripped
 GameObject:
