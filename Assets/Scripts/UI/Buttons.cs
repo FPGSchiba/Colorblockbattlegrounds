@@ -9,12 +9,12 @@ public class Buttons : MonoBehaviour
 
     public void OpenSandbox()
     {
-        SceneManager.LoadScene("MinecraftEnd");
+        SceneManager.LoadScene(8);
     }
 
     public void OpenRaumschiff()
     {
-        SceneManager.LoadScene("Labyrinth");
+        SceneManager.LoadScene(9);
     }
 
     public void OpenMain()
